@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Doc } from './doc.model';
+import {environment} from './../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +10,13 @@ import { Doc } from './doc.model';
 })
 export class AppComponent {
   title = 'Proiectare';
+  apiURL = environment.apiURL;
 
   constructor(private http: HttpClient) {}
 
   onCreatePost(postData: Doc) {
     this.http
-      .post('http://localhost:8080/generareDocument', postData, {
+      .post(`${this.apiURL}/generareDocument`, postData, {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
         responseType: 'blob',
       })
